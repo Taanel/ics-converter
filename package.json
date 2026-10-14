@@ -1,0 +1,17 @@
+{
+  "name": "ics-converter",
+  "version": "1.0.0",
+  "description": "Macht aus Reisedaten (JSON) eine Webseite mit „Zum Kalender hinzufügen“-Buttons für Apple und Google Kalender.",
+  "homepage": "https://taanel.github.io/ics-converter/",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node src/build.js",
+    "dev": "node src/build.js && node src/serve.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

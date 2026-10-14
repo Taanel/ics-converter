@@ -1,0 +1,54 @@
+{
+  "slug": "prag-2026",
+  "title": "Prag",
+  "subtitle": "Freitag 16. bis Sonntag 18. Oktober 2026",
+  "timezone": "Europe/Berlin",
+  "travelers": ["Thanh", "Son", "Huy", "Trung", "Manh", "Thang"],
+  "events": [
+    {
+      "id": "bus-hin",
+      "icon": "bus",
+      "title": "FlixBus Berlin → Prag",
+      "start": "2026-10-16T11:00",
+      "end": "2026-10-16T15:40",
+      "location": "Berlin ZOB, Masurenallee 4-6, 14057 Berlin",
+      "arrival": "Prag ÚAN Florenc, Křižíkova 2110/2b, 186 00 Praha",
+      "notes": [
+        "FlixBus Linie 060, Richtung Wien Erdberg",
+        "Sitze: Thanh 11D · Son 11C · Huy 10C · Trung 10D · Manh 9D · Thang 9C",
+        "15 Minuten vor Abfahrt da sein, Ausweis oder Reisepass mitnehmen",
+        "Bussteig steht auf zob.berlin"
+      ],
+      "alarms": [120, 30]
+    },
+    {
+      "id": "airbnb",
+      "icon": "home",
+      "title": "Airbnb Prag",
+      "start": "2026-10-16T15:00",
+      "end": "2026-10-18T10:00",
+      "location": "Ke Štvanici 379/6, 186 00 Praha 8",
+      "notes": [
+        "Check-in ab 15:00, Self-Check-in mit Keypad",
+        "Check-out bis 10:00",
+        "2-Zimmer-Wohnung für 6 Personen"
+      ],
+      "alarms": [60]
+    },
+    {
+      "id": "bus-rueck",
+      "icon": "bus",
+      "title": "FlixBus Prag → Berlin",
+      "start": "2026-10-18T15:00",
+      "end": "2026-10-18T19:55",
+      "location": "Prag ÚAN Florenc, Křižíkova 2110/2b, 186 00 Praha",
+      "arrival": "Berlin ZOB, Masurenallee 4-6, 14057 Berlin",
+      "notes": [
+        "FlixBus Linie 060, Richtung Berlin ZOB",
+        "Sitze: Thanh 10A · Son 11C · Huy 11D · Trung 10D · Manh 10C · Thang 10B",
+        "Bussteig steht auf der Tafel in Halle 1 oder auf florenc.cz"
+      ],
+      "alarms": [120, 30]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T22:10:00+02:00",
+  "title": "Design System: Reise-Kalender",
+  "extensions": {
+    "colorMeta": {
+      "sign": { "role": "primary", "displayName": "Wegweiser-Gelb", "canonical": "#FFCC00", "tonalRamp": ["oklch(25% 0.05 90)", "oklch(37% 0.08 90)", "oklch(49% 0.11 90)", "oklch(61% 0.13 90)", "oklch(73% 0.15 90)", "oklch(86.8% 0.177 90)", "oklch(92% 0.12 92)", "oklch(97% 0.05 95)"] },
+      "sign-ink": { "role": "primary", "displayName": "Schildschrift", "canonical": "#111111", "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(37% 0 0)", "oklch(48% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"] },
+      "sign-soft": { "role": "primary", "displayName": "Gedämpfte Schildschrift", "canonical": "#3A3000", "tonalRamp": ["oklch(15% 0.03 95)", "oklch(29.5% 0.06 95)", "oklch(40% 0.08 95)", "oklch(51% 0.1 95)", "oklch(62% 0.11 95)", "oklch(73% 0.11 95)", "oklch(84% 0.08 95)", "oklch(95% 0.03 95)"] },
+      "band": { "role": "neutral", "displayName": "Schildgrund", "canonical": "#111111", "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(37% 0 0)", "oklch(48% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"] },
+      "band-ink": { "role": "neutral", "displayName": "Schildweiß", "canonical": "#FFFFFF", "tonalRamp": ["oklch(15% 0 0)", "oklch(28% 0 0)", "oklch(41% 0 0)", "oklch(54% 0 0)", "oklch(67% 0 0)", "oklch(80% 0 0)", "oklch(92% 0 0)", "oklch(100% 0 0)"] },
+      "band-soft": { "role": "neutral", "displayName": "Warmes Steingrau", "canonical": "#B9B6AE", "tonalRamp": ["oklch(15% 0.008 85)", "oklch(27% 0.008 85)", "oklch(39% 0.008 85)", "oklch(51% 0.009 85)", "oklch(63% 0.01 85)", "oklch(76.5% 0.011 85)", "oklch(86% 0.008 85)", "oklch(95% 0.004 85)"] },
+      "ground-light": { "role": "neutral", "displayName": "Betongrau", "canonical": "#D9DBDE", "tonalRamp": ["oklch(15% 0.004 250)", "oklch(27% 0.004 250)", "oklch(39% 0.005 250)", "oklch(51% 0.005 250)", "oklch(63% 0.005 250)", "oklch(75% 0.005 250)", "oklch(88.6% 0.004 250)", "oklch(96% 0.002 250)"] },
+      "ink-soft-light": { "role": "neutral", "displayName": "Schiefer", "canonical": "#3E4146", "tonalRamp": ["oklch(15% 0.008 260)", "oklch(25% 0.009 260)", "oklch(38.5% 0.01 260)", "oklch(50% 0.01 260)", "oklch(62% 0.01 260)", "oklch(74% 0.008 260)", "oklch(86% 0.005 260)", "oklch(95% 0.002 260)"] },
+      "ground-dark": { "role": "neutral", "displayName": "Anthrazit", "canonical": "#2B2B2B", "tonalRamp": ["oklch(15% 0 0)", "oklch(21% 0 0)", "oklch(28.5% 0 0)", "oklch(40% 0 0)", "oklch(53% 0 0)", "oklch(67% 0 0)", "oklch(82% 0 0)", "oklch(95% 0 0)"] },
+      "rule-dark": { "role": "neutral", "displayName": "Fugengrau", "canonical": "#444444", "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(37.5% 0 0)", "oklch(48% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Nur der Reisename im Kopf bzw. „Reise-Kalender“ auf der Startseite." },
+      "time-next": { "displayName": "Zeit nächster Termin", "purpose": "Startzeit im gelben Band; größte Zahl der Seite." },
+      "time": { "displayName": "Zeit", "purpose": "Startzeit in jedem schwarzen Band." },
+      "headline": { "displayName": "Headline", "purpose": "Abschnittstitel wie „Alle Termine auf einmal“." },
+      "title": { "displayName": "Title", "purpose": "Termintitel im Band." },
+      "body": { "displayName": "Body", "purpose": "Fließtext und Erklärungen, max. 60ch." },
+      "body-small": { "displayName": "Body small", "purpose": "Orte, Notizen, Tagesüberschriften." },
+      "label": { "displayName": "Label", "purpose": "Button-Beschriftungen, Dauer, Fußzeile." },
+      "state": { "displayName": "State", "purpose": "Nur der Zustands-Marker (Als Nächstes / Läuft gerade / Vorbei), Großbuchstaben." }
+    },
+    "shadows": [],
+    "focus": [
+      { "name": "focus-ring", "value": "outline: 3px solid var(--focus); outline-offset: 2px", "purpose": "Kontextfarbe: Gelb auf schwarzen Flächen und im dunklen Modus, Schwarz auf Gelb und im hellen Seitengrund." }
+    ],
+    "motion": [
+      { "name": "ease-flap", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "Einzige Kurve: schnell an, weich aus, wie ein Fallblatt." },
+      { "name": "strip-slide", "value": "transform .35s ease-flap", "purpose": "Wegweiser oben fährt herein, wenn das gelbe Band aus dem Bild ist." },
+      { "name": "strip-flip", "value": "clip-path inset 100%→0 + translateY(-6px)→0, .5s ease-flap", "purpose": "Text im Wegweiser klappt beim Laden einmal auf." },
+      { "name": "press", "value": "transform: scale(.97), .15s ease-flap", "purpose": "Button beim Drücken." },
+      { "name": "reduced-motion", "value": "animation:none; transition:none", "purpose": "Bei prefers-reduced-motion alles aus." }
+    ],
+    "breakpoints": [
+      { "name": "wide", "value": "40rem", "purpose": "Größere Band-Polster (22px 24px 20px), Piktogramm 52px." }
+    ],
+    "layout": { "maxWidth": "38rem", "gutter": "16px", "bandGap": "4px", "scrollMarginTop": "72px" }
+  },
+  "components": [
+    {
+      "name": "Button (auf Schwarz)",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Standard-Kalenderaktion auf schwarzem Band.",
+      "html": "<div class=\"ds-bg\"><a class=\"ds-btn\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"20\" height=\"20\" aria-hidden=\"true\"><rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"1.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5\"/></svg>Apple Kalender</a></div>",
+      "css": ".ds-bg{background:#111;padding:16px} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 12px;border-radius:2px;background:#fff;color:#111;font:700 .875rem 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;transition:transform .15s cubic-bezier(.16,1,.3,1),filter .15s} .ds-btn:hover{filter:brightness(1.12)} .ds-btn:active{transform:scale(.97)} .ds-btn:focus-visible{outline:3px solid #FFCC00;outline-offset:2px}"
+    },
+    {
+      "name": "Primär-Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Die eine Hauptaktion pro Bereich, z. B. „Alle in Apple Kalender“.",
+      "html": "<div class=\"ds-bg\"><a class=\"ds-btn-primary\" href=\"#\">Alle in Apple Kalender</a></div>",
+      "css": ".ds-bg{background:#111;padding:16px} .ds-btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 12px;border-radius:2px;background:#FFCC00;color:#111;font:700 .875rem 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;transition:transform .15s cubic-bezier(.16,1,.3,1),filter .15s} .ds-btn-primary:hover{filter:brightness(1.12)} .ds-btn-primary:active{transform:scale(.97)} .ds-btn-primary:focus-visible{outline:3px solid #FFCC00;outline-offset:2px}"
+    },
+    {
+      "name": "Button auf Gelb",
+      "kind": "button",
+      "refersTo": "button-on-sign",
+      "description": "Umgekehrter Button im Band des nächsten Termins.",
+      "html": "<div class=\"ds-sign\"><a class=\"ds-btn-on-sign\" href=\"#\">Google Kalender</a></div>",
+      "css": ".ds-sign{background:#FFCC00;padding:16px} .ds-btn-on-sign{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 12px;border-radius:2px;background:#111;color:#FFCC00;font:700 .875rem 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;transition:transform .15s cubic-bezier(.16,1,.3,1)} .ds-btn-on-sign:active{transform:scale(.97)} .ds-btn-on-sign:focus-visible{outline:3px solid #111;outline-offset:2px}"
+    },
+    {
+      "name": "Termin-Band",
+      "kind": "card",
+      "refersTo": "band",
+      "description": "Schwarzes Schildband pro Termin: Piktogramm, Zeit, Titel, Ort, Route.",
+      "html": "<article class=\"ds-band\"><div class=\"ds-picto\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path d=\"M3 11 12 4l9 7\"/><path d=\"M5.5 9.5V20h13V9.5\"/><path d=\"M10 20v-5.5h4V20\"/></svg></div><div><div class=\"ds-time-row\"><p class=\"ds-time\">15:00</p><p class=\"ds-until\">bis So 10:00</p></div><h3 class=\"ds-title\">Airbnb Prag</h3><p class=\"ds-place\">Ke Štvanici, Praha 8</p></div></article>",
+      "css": ".ds-band{display:grid;grid-template-columns:44px 1fr;gap:0 14px;padding:18px 14px 16px;background:#111;color:#fff;border-top:1px solid #444;font-family:'Hanken Grotesk',system-ui,sans-serif;font-variant-numeric:tabular-nums} .ds-band p,.ds-band h3{margin:0} .ds-picto{width:44px;height:44px;display:grid;place-items:center;background:#fff;color:#111;border-radius:2px} .ds-time-row{display:flex;align-items:baseline;gap:0 10px} .ds-time{font-size:2.125rem;font-weight:800;line-height:1;letter-spacing:-.02em} .ds-until{font-size:1.0625rem;font-weight:600} .ds-title{margin-top:8px!important;font-size:1.1875rem;font-weight:700;line-height:1.25} .ds-place{margin-top:4px!important;font-size:.9375rem;line-height:1.4;color:#B9B6AE}"
+    },
+    {
+      "name": "Band nächster Termin",
+      "kind": "custom",
+      "refersTo": "band-next",
+      "description": "Das eine gelbe Band; Farben umgekehrt, Zeit 3.5rem, Zustands-Marker sichtbar.",
+      "html": "<article class=\"ds-next\"><div class=\"ds-picto-on\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"24\" height=\"24\" aria-hidden=\"true\"><rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M4 11h16M8 3v8M16 3v8M7 18v3M17 18v3\"/></svg></div><div><p class=\"ds-time\">11:00</p><span class=\"ds-state\">Als Nächstes</span><h3 class=\"ds-title\">FlixBus Berlin → Prag</h3><p class=\"ds-place\"><b>ab</b> Berlin ZOB</p></div></article>",
+      "css": ".ds-next{display:grid;grid-template-columns:44px 1fr;gap:0 14px;padding:18px 14px 16px;background:#FFCC00;color:#111;font-family:'Hanken Grotesk',system-ui,sans-serif;font-variant-numeric:tabular-nums} .ds-next p,.ds-next h3{margin:0} .ds-picto-on{width:44px;height:44px;display:grid;place-items:center;background:#111;color:#FFCC00;border-radius:2px} .ds-time{font-size:3.5rem;font-weight:800;line-height:1;letter-spacing:-.02em} .ds-state{display:inline-block;margin-top:6px;padding:3px 7px 4px;border-radius:2px;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#111;color:#FFCC00} .ds-title{margin-top:8px!important;font-size:1.1875rem;font-weight:700;line-height:1.25} .ds-place{margin-top:4px!important;font-size:.9375rem;color:#3A3000} .ds-place b{color:#111}"
+    },
+    {
+      "name": "Wegweiser oben",
+      "kind": "nav",
+      "refersTo": "strip",
+      "description": "Fixierter gelber Streifen mit dem nächsten Termin; erscheint, wenn das gelbe Band aus dem Bild ist.",
+      "html": "<nav class=\"ds-strip\" aria-label=\"Nächster Termin\"><a href=\"#\"><span class=\"ds-sq\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span><span class=\"ds-txt\"><b>FlixBus Berlin → Prag</b><span>Fr 11:00 · in 2 Tagen</span></span></a></nav>",
+      "css": ".ds-strip{background:#FFCC00;color:#111;font-family:'Hanken Grotesk',system-ui,sans-serif;font-variant-numeric:tabular-nums} .ds-strip a{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 16px;color:inherit;text-decoration:none} .ds-strip a:focus-visible{outline:3px solid #111;outline-offset:-3px} .ds-sq{width:44px;height:44px;display:grid;place-items:center;background:#111;color:#FFCC00;border-radius:2px} .ds-txt{line-height:1.25} .ds-txt b{display:block;font-weight:800;font-size:1.0625rem} .ds-txt span{font-weight:600;font-size:.9375rem;color:#3A3000}"
+    },
+    {
+      "name": "Reise-Link",
+      "kind": "nav",
+      "refersTo": "trip-link",
+      "description": "Eintrag auf der Startseite; wird beim Hover gelb.",
+      "html": "<a class=\"ds-trip\" href=\"#\"><span><b>Prag</b><span>Freitag 16. bis Sonntag 18. Oktober 2026</span></span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-trip{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:18px 16px;background:#111;color:#fff;text-decoration:none;font-family:'Hanken Grotesk',system-ui,sans-serif} .ds-trip b{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.02em} .ds-trip span span{color:#B9B6AE;font-weight:500} .ds-trip:hover{background:#FFCC00;color:#111} .ds-trip:hover span span{color:#3A3000} .ds-trip:focus-visible{outline:3px solid #FFCC00;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Die Wegweiser-Kette",
+    "overview": "Die Reise ist eine Kette von Flughafen-Wegweisern. Jeder Termin ist ein schwarzes Schildband, randlos und flach, mit Uhrzeit und Ort in großer, schwerer Schrift. Genau ein Band ist gelb: der nächste Termin. Gelb bedeutet immer „hier geht es weiter“ oder „hier tippen“, nie Schmuck. Wer die Seite am Busbahnhof mit einer Hand öffnet, soll in einer Sekunde sehen, wann und wo es als Nächstes losgeht.\n\nDie Dichte ist die einer Abflugtafel: Bänder stehen mit nur 4px Abstand untereinander, gruppiert nach Tagen. Die Schilder sind in hellem und dunklem Modus gleich schwarz; es wechselt nur der Seitengrund (helles Betongrau oder Anthrazit). Tiefe entsteht durch Kontrast, nicht durch Schatten. Bewegung ist knapp und mechanisch, wie ein umklappendes Fallblatt.\n\nBewusst abgelehnt ist die übliche Termin-Zeitleiste mit weißen Karten, weichen Schatten und blauem Punkt.",
+    "keyCharacteristics": [
+      "Schwarze Schildbänder, ein gelbes Band für den nächsten Termin.",
+      "Gelb ausschließlich für Wegweisung und Aktionen.",
+      "Hanken Grotesk, schwer (700–800), Satzschreibung, Tabellenziffern überall.",
+      "Ecken höchstens 2px, keine Schatten, keine Verläufe.",
+      "Weiße oder gelbe Piktogramm-Quadrate als SVG, 2px Strich.",
+      "Hell und dunkel: Schilder bleiben schwarz, nur der Grund wechselt."
+    ],
+    "rules": [
+      { "name": "Die Nur-Wegweisung-Regel", "body": "Gelb erscheint nur dort, wo es den Weg zeigt oder eine Aktion auslöst: das Band des nächsten Termins, der Wegweiser oben, die eine Hauptaktion, der Karten-Pfeil. Nie als Fläche, Rahmen oder Dekoration.", "section": "colors" },
+      { "name": "Die Ein-Gelbes-Band-Regel", "body": "In der Terminliste ist immer höchstens ein Band gelb. Auf Gelb kehren sich Buttons und Piktogramme um: schwarzer Grund, gelbe Schrift.", "section": "colors" },
+      { "name": "Die Schilder-bleiben-schwarz-Regel", "body": "Der dunkle Modus ändert nur Seitengrund, Seitenschrift, Linien und Fokusfarbe. Bänder, Buttons und Gelb bleiben identisch.", "section": "colors" },
+      { "name": "Die Tabellenziffern-Regel", "body": "Alle Zahlen stehen in Tabellenziffern, damit Uhrzeiten untereinander bündig stehen und beim Umschalten nicht springen.", "section": "typography" },
+      { "name": "Die Satzschreibung-Regel", "body": "Überschriften, Buttons und Hinweise stehen in normaler Satzschreibung. Großbuchstaben gibt es ausschließlich im Zustands-Marker.", "section": "typography" },
+      { "name": "Die Kein-Schatten-Regel", "body": "Weder Box- noch Textschatten, keine Verläufe, keine Unschärfe. Was hervortreten soll, wird gelb oder größer.", "section": "elevation" },
+      { "name": "Die 2px-Regel", "body": "Keine Rundung über 2px, nirgends.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do zeige jeden Termin als schwarzes Band und genau den nächsten als gelbes.",
+      "Do kehre auf Gelb alles um: schwarze Buttons und Quadrate mit gelber Schrift.",
+      "Do setze Uhrzeiten groß (2.125rem, im nächsten Termin 3.5rem) in Gewicht 800 und Tabellenziffern.",
+      "Do halte Tap-Ziele bei mindestens 44px, Buttons bei 48px.",
+      "Do zeichne neue Piktogramme als SVG im 24px-Raster mit 2px Strich und runden Enden.",
+      "Do lass im dunklen Modus die Schilder unverändert und wechsle nur Grund, Seitenschrift, Linien und Fokusfarbe.",
+      "Do respektiere `prefers-reduced-motion`: dann keine Animationen und Übergänge."
+    ],
+    "donts": [
+      "Don't nutze Gelb als Dekoration, Rahmen oder Hintergrund ohne Wegweiser-Funktion.",
+      "Don't runde Ecken über 2px.",
+      "Don't setze Schatten, Verläufe oder Unschärfe ein.",
+      "Don't baue die Standard-Zeitleiste mit weißen Karten und blauem Punkt nach.",
+      "Don't schreibe Überschriften oder Buttons in Großbuchstaben; die gibt es nur im Zustands-Marker.",
+      "Don't ersetze Piktogramme durch Emoji oder Schriftzeichen."
+    ]
+  }
+}
