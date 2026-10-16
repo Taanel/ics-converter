@@ -52,6 +52,7 @@ function styles(root) {
   --picto:#FFFFFF; --picto-ink:#111111;
   --btn:#FFFFFF; --btn-ink:#111111;
   --focus:#111111;
+  --ease:cubic-bezier(.16,1,.3,1);
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root{
@@ -167,6 +168,30 @@ h1,h2,h3,p,ul{margin:0}
   .picto{width:52px;height:52px}
   .all{padding:28px 24px}
 }
+/* Bewegung: Auftritt in Lesereihenfolge, Abfahrtstafel für die nächste Uhrzeit.
+   Versteckte Startzustände gibt es nur mit JavaScript (.js) und ohne „Bewegung reduzieren“. */
+.lines .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.lines [data-line]{display:block}
+.flap{display:inline-block}
+.state::before{content:"";display:none;width:7px;height:7px;margin-right:6px;border-radius:50%;background:currentColor;vertical-align:1px}
+.band[data-state="now"] .state::before{display:inline-block}
+.route .icon,.trip-link .icon{transition:transform .2s var(--ease)}
+.route:hover .icon{transform:translate(2px,-2px)}
+.trip-link:hover .icon{transform:translateX(4px)}
+.btn .icon{transition:transform .2s var(--ease)}
+.btn:hover .icon{transform:scale(1.12)}
+@media (prefers-reduced-motion:no-preference){
+  .js .lines [data-line]{animation:line-up .9s var(--ease) .1s backwards}
+  .js [data-rise]{animation:rise .7s var(--ease) backwards;animation-delay:calc(var(--i,0) * 70ms + 200ms)}
+  .flap.spin{animation:flap .09s linear}
+  .flap.land{animation:land .35s var(--ease)}
+  .band[data-state="now"] .state::before{animation:live 1.6s ease-in-out infinite}
+}
+@keyframes line-up{from{transform:translateY(105%)}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+@keyframes flap{from{transform:perspective(300px) rotateX(-70deg);opacity:.5}}
+@keyframes land{from{transform:perspective(300px) rotateX(-90deg)}60%{transform:perspective(300px) rotateX(12deg)}}
+@keyframes live{50%{opacity:.25}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 `;
 }
@@ -182,6 +207,7 @@ function documentShell({ title, description, root, body, script = '' }) {
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta name="theme-color" content="#FFCC00">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preload" href="${root}assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>${styles(root)}</style>
 </head>
@@ -212,7 +238,7 @@ function eventBand(event, trip) {
     : '';
 
   return `
-<article class="band" id="${esc(event.id)}" data-start="${event.startUtc.toISOString()}" data-end="${event.endUtc.toISOString()}" data-title="${esc(event.title)}" aria-labelledby="${esc(event.id)}-title">
+<article class="band" data-rise id="${esc(event.id)}" data-start="${event.startUtc.toISOString()}" data-end="${event.endUtc.toISOString()}" data-title="${esc(event.title)}" aria-labelledby="${esc(event.id)}-title">
   <div class="picto">${icon(iconName, ICON_LABELS[iconName])}</div>
   <div>
     <div class="time-row">
@@ -266,6 +292,7 @@ const INAPP_SCRIPT = `(() => {
       document.body.append(field); field.select(); document.execCommand('copy'); field.remove();
     }
     copy.lastChild.textContent = 'Kopiert – jetzt in Safari einfügen';
+    copy.querySelector('svg').innerHTML = '<path d="M5 12.5l4.5 4.5L19 7.5"/>';
   });
 
   // Apple-Links würden hier ins Leere laufen: stattdessen zum Hinweis springen.
@@ -279,6 +306,9 @@ const INAPP_SCRIPT = `(() => {
 })();`;
 
 const TRIP_SCRIPT = `(() => {
+  // Auftritt in Lesereihenfolge: jedes Element bekommt seinen Platz in der Staffel.
+  document.querySelectorAll('[data-rise]').forEach((el, i) => el.style.setProperty('--i', Math.min(i, 8)));
+
   const bands = [...document.querySelectorAll('.band[data-start]')];
   const strip = document.querySelector('.strip-text');
   const now = Date.now();
@@ -320,6 +350,35 @@ const TRIP_SCRIPT = `(() => {
   }
   strip.classList.add('flip');
 
+  // Abfahrtstafel: die Ziffern der nächsten Uhrzeit rattern durch, bis die echte Zeit steht.
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const time = next && next.querySelector('.time');
+  if (time && !calm) {
+    const text = time.textContent;
+    time.setAttribute('aria-label', text);
+    time.replaceChildren(...[...text].map((ch, i) => {
+      const flap = document.createElement('span');
+      flap.className = 'flap';
+      flap.setAttribute('aria-hidden', 'true');
+      flap.textContent = ch;
+      if (!/\\d/.test(ch)) return flap;
+      let turns = 6 + i * 2;
+      const tick = () => {
+        flap.classList.remove('spin', 'land'); void flap.offsetWidth;
+        if (--turns > 0) {
+          flap.textContent = String(Math.floor(Math.random() * 10));
+          flap.classList.add('spin');
+          setTimeout(tick, 90);
+        } else {
+          flap.textContent = ch;
+          flap.classList.add('land');
+        }
+      };
+      setTimeout(tick, 450);
+      return flap;
+    }));
+  }
+
   // Der Wegweiser oben erscheint erst, wenn das gelbe Band aus dem Bild ist.
   const bar = document.querySelector('.strip');
   if (!next) { bar.classList.add('show'); return; }
@@ -341,8 +400,8 @@ export function renderTripPage(trip) {
 
   const body = `
 <header class="wrap head">
-  <h1>${esc(trip.title)}</h1>
-  <p>${esc(trip.subtitle ?? '')}${trip.subtitle ? ' · ' : ''}${count}${people}</p>
+  <h1 class="lines"><span class="line"><span data-line>${esc(trip.title)}</span></span></h1>
+  <p data-rise>${esc(trip.subtitle ?? '')}${trip.subtitle ? ' · ' : ''}${count}${people}</p>
 </header>
 
 <aside class="wrap" id="inapp-wrap">
@@ -372,11 +431,11 @@ export function renderTripPage(trip) {
 
 <main class="wrap" id="termine">
   ${days.map(({ day, events }) => `
-  <h2 class="day">${formatDay(day)}</h2>
+  <h2 class="day" data-rise>${formatDay(day)}</h2>
   <div class="bands">${events.map((e) => eventBand(e, trip)).join('')}
   </div>`).join('')}
 
-  <section class="all" aria-labelledby="all-title">
+  <section class="all" data-rise aria-labelledby="all-title">
     <h2 id="all-title">Alle Termine auf einmal</h2>
     <p>Abonnieren legt einen eigenen Kalender „${esc(trip.title)}“ an. Ändert sich ein Termin, wird er automatisch aktualisiert – und du kannst den ganzen Kalender jederzeit wieder löschen.</p>
     <div class="actions">
@@ -406,12 +465,12 @@ export function renderTripPage(trip) {
 
 export function renderIndexPage(trips) {
   const list = trips
-    .map((trip) => `<a class="trip-link" href="${esc(trip.slug)}/"><span><b>${esc(trip.title)}</b><span>${esc(trip.subtitle ?? '')}</span></span>${icon('arrow')}</a>`)
+    .map((trip) => `<a class="trip-link" data-rise href="${esc(trip.slug)}/"><span><b>${esc(trip.title)}</b><span>${esc(trip.subtitle ?? '')}</span></span>${icon('arrow')}</a>`)
     .join('');
   const body = `
 <header class="wrap head">
-  <h1>Reise-Kalender</h1>
-  <p>Wähle eine Reise und übernimm die Termine in deinen Kalender.</p>
+  <h1 class="lines"><span class="line"><span data-line>Reise-Kalender</span></span></h1>
+  <p data-rise>Wähle eine Reise und übernimm die Termine in deinen Kalender.</p>
 </header>
 <main class="wrap"><div class="bands">${list}</div></main>
 <footer class="wrap foot"><p>Erstellt mit <a href="https://github.com/Taanel/ics-converter">ics-converter</a></p></footer>`;
