@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "grotesk",
+        "createdAt": "2026-10-16T09:36:23.476Z",
+        "reason": "False positive: Hanken Grotesk is declared in DESIGN.md typography"
+      }
+    ]
+  }
+}

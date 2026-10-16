@@ -14,52 +14,62 @@ colors:
   rule-dark: "#444444"
 typography:
   display:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "clamp(2.75rem, 12vw, 4rem)"
     fontWeight: 800
     lineHeight: 0.95
     letterSpacing: "-0.03em"
   time-next:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "3.5rem"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: "-0.02em"
     fontFeature: "\"tnum\""
   time:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "2.125rem"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: "-0.02em"
     fontFeature: "\"tnum\""
   headline:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "1.375rem"
     fontWeight: 800
     letterSpacing: "-0.01em"
+  trip-title:
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
+    fontSize: "1.5rem"
+    fontWeight: 800
+    letterSpacing: "-0.02em"
   title:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "1.1875rem"
     fontWeight: 700
     lineHeight: 1.25
+  lead:
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 600
+    lineHeight: 1.3
   body:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
     fontFeature: "\"tnum\""
   body-small:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "0.9375rem"
     fontWeight: 400
     lineHeight: 1.4
   label:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 700
   state:
-    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontFamily: "\"Hanken Grotesk\", system-ui, sans-serif"
     fontSize: "0.75rem"
     fontWeight: 800
     letterSpacing: "0.06em"

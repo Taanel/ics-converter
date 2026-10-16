@@ -21,6 +21,8 @@ const ICON_PATHS = {
   route: '<path d="M5 19 19 5M9 5h10v10"/>',
   sync: '<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="1.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/>',
 };
 
 function icon(name, label) {
@@ -108,7 +110,7 @@ h1,h2,h3,p,ul{margin:0}
 .notes li{padding-left:14px;position:relative}
 .notes li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:2px;background:currentColor}
 .actions{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:8px;margin-top:16px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 12px;border-radius:2px;white-space:nowrap;
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;font-family:inherit;cursor:pointer;min-height:48px;padding:0 12px;border-radius:2px;white-space:nowrap;
   background:var(--btn);color:var(--btn-ink);font-weight:700;font-size:.875rem;text-decoration:none;
   transition:transform .15s cubic-bezier(.16,1,.3,1),filter .15s}
 .btn:hover{filter:brightness(1.12)}
@@ -136,6 +138,19 @@ h1,h2,h3,p,ul{margin:0}
 .all .btn.primary{background:var(--sign);color:var(--sign-ink)}
 .hint{margin-top:20px;padding-top:14px;border-top:1px solid #3A3A3A;font-size:.875rem;color:var(--band-soft)}
 .hint b{color:var(--band-ink)}
+
+/* Hinweis für In-App-Browser (Messenger, Instagram …) */
+.inapp{margin-bottom:8px;padding:20px 16px;background:var(--sign);color:var(--sign-ink);
+  display:grid;grid-template-columns:44px 1fr;gap:0 14px;--focus:var(--sign-ink)}
+.inapp[hidden]{display:none}
+.inapp .picto{background:var(--sign-ink);color:var(--sign)}
+.inapp h2{font-size:1.375rem;letter-spacing:-.01em;font-weight:800;line-height:1.2}
+.inapp p{margin-top:6px;font-size:.9375rem;color:var(--sign-soft)}
+.inapp ol{margin:10px 0 0;padding-left:1.2em;font-size:.9375rem;font-weight:600}
+.inapp .actions{--btn:var(--sign-ink);--btn-ink:var(--sign)}
+.inapp .btn.quiet{background:transparent;color:var(--sign-ink);box-shadow:inset 0 0 0 2px var(--sign-ink)}
+.inapp.flash{animation:flash .9s cubic-bezier(.16,1,.3,1)}
+@keyframes flash{30%{transform:scale(1.02)}}
 
 /* Startseite */
 .trip-link{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;padding:18px 16px;
@@ -220,6 +235,49 @@ function eventBand(event, trip) {
 
 // Kleines Skript: markiert den nächsten Termin und füllt den Wegweiser oben.
 // Ohne JavaScript bleibt der erste Termin markiert – die Seite funktioniert trotzdem.
+// Erkennt In-App-Browser (Messenger, Instagram, Facebook …), in denen
+// Apple-Kalender-Links nicht funktionieren.
+//   Android: automatisch in Chrome öffnen.
+//   iPhone:  gelben Hinweis mit „In Safari öffnen“ und „Link kopieren“ zeigen.
+const INAPP_SCRIPT = `(() => {
+  const ua = navigator.userAgent;
+  const inApp = /FBAN|FBAV|FB_IAB|FBIOS|FB4A|Messenger|Instagram|Line\\/|Snapchat|musical_ly|BytedanceWebview/i.test(ua);
+  if (!inApp) return;
+  const url = location.href.split('#')[0];
+
+  if (/Android/i.test(ua)) {
+    let tried = false;
+    try { tried = sessionStorage.getItem('chrome-redirect') === '1'; sessionStorage.setItem('chrome-redirect', '1'); } catch {}
+    if (!tried) {
+      location.href = 'intent://' + url.replace(/^https?:\\/\\//, '') + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+    }
+    return; // Auf Android funktionieren die Google-Buttons auch im In-App-Browser.
+  }
+
+  const box = document.getElementById('inapp');
+  box.hidden = false;
+  document.getElementById('inapp-safari').href = 'x-safari-' + url;
+
+  const copy = document.getElementById('inapp-copy');
+  copy.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(url); }
+    catch {
+      const field = Object.assign(document.createElement('textarea'), { value: url });
+      document.body.append(field); field.select(); document.execCommand('copy'); field.remove();
+    }
+    copy.lastChild.textContent = 'Kopiert – jetzt in Safari einfügen';
+  });
+
+  // Apple-Links würden hier ins Leere laufen: stattdessen zum Hinweis springen.
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href$=".ics"], a[href^="webcal:"]');
+    if (!link) return;
+    event.preventDefault();
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+  });
+})();`;
+
 const TRIP_SCRIPT = `(() => {
   const bands = [...document.querySelectorAll('.band[data-start]')];
   const strip = document.querySelector('.strip-text');
@@ -287,6 +345,24 @@ export function renderTripPage(trip) {
   <p>${esc(trip.subtitle ?? '')}${trip.subtitle ? ' · ' : ''}${count}${people}</p>
 </header>
 
+<aside class="wrap" id="inapp-wrap">
+  <div class="inapp" id="inapp" hidden role="region" aria-labelledby="inapp-title">
+    <div class="picto">${icon('compass')}</div>
+    <div>
+      <h2 id="inapp-title">Bitte in Safari öffnen</h2>
+      <p>Du bist im Browser von Messenger oder Instagram. Dort kann das iPhone keine Termine in den Kalender eintragen.</p>
+      <ol>
+        <li>Tippe unten auf „In Safari öffnen“.</li>
+        <li>Klappt das nicht: oben rechts auf ••• tippen → „Im externen Browser öffnen“.</li>
+      </ol>
+    </div>
+    <div class="actions">
+      <a class="btn" id="inapp-safari" href="#">${icon('compass')}In Safari öffnen</a>
+      <button class="btn quiet" id="inapp-copy" type="button">${icon('copy')}Link kopieren</button>
+    </div>
+  </div>
+</aside>
+
 <nav class="strip" aria-label="Nächster Termin">
   <a class="wrap" href="#${esc(first.id)}">
     <span class="picto">${icon('arrow')}</span>
@@ -321,7 +397,7 @@ export function renderTripPage(trip) {
     description: `${trip.subtitle ?? ''} · Termine mit einem Tipp in Apple oder Google Kalender übernehmen.`,
     root: '../',
     body,
-    script: TRIP_SCRIPT,
+    script: INAPP_SCRIPT + '\n' + TRIP_SCRIPT,
   });
 }
 
